@@ -1,0 +1,83 @@
+<!-- pages/talk/talk.wxml -->
+<view class="container">
+  <!-- 顶部状态栏 -->
+  <view class="status-bar">
+    <view class="channel-info">
+      <text class="channel-name">{{channel.name || '未选择频道'}}</text>
+      <text class="channel-meta">{{channel.members || 0}}人在线 · {{modeText}}</text>
+    </view>
+    <view class="mode-switch" bindtap="toggleModePanel">
+      <view class="mode-indicator {{commMode === 'acoustic' ? 'mode-acoustic' : 'mode-network'}}"></view>
+    </view>
+  </view>
+
+  <!-- 模式切换面板 -->
+  <view class="mode-panel" wx:if="{{showModePanel}}">
+    <view class="mode-panel-title">通信模式</view>
+    <view class="mode-options">
+      <view class="mode-option {{commMode === 'acoustic' ? 'active' : ''}}" bindtap="switchMode" data-mode="acoustic">
+        <text>声学FSK</text>
+        <text class="mode-desc">无需网络，通过声波传输</text>
+      </view>
+      <view class="mode-option {{commMode === 'network' ? 'active' : ''}}" bindtap="switchMode" data-mode="network">
+        <text>网络语音</text>
+        <text class="mode-desc">需要网络，实时语音对讲</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 消息列表 -->
+  <scroll-view class="msg-list" scroll-y scroll-into-view="{{scrollToId}}">
+    <view class="msg-item {{item.isSelf ? 'msg-self' : 'msg-other'}}" wx:for="{{messages}}" wx:key="id" id="msg-{{item.id}}">
+      <view class="msg-sender">{{item.sender}} · {{item.time}}</view>
+      <view class="msg-bubble">{{item.text}}</view>
+    </view>
+
+    <!-- FSK 传输进度 -->
+    <view class="msg-item msg-system" wx:if="{{isTransmitting}}">
+      <view class="msg-sender text-warning">系统</view>
+      <view class="msg-bubble msg-bubble-system">
+        <text>FSK信号传输中...</text>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{transmitProgress}}%"></view>
+        </view>
+        <text class="text-sm text-secondary">{{transmitProgress}}%</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 实时波形（声学模式） -->
+  <view class="waveform-box" wx:if="{{commMode === 'acoustic'}}">
+    <text class="text-sm text-secondary">实时音频波形</text>
+    <canvas canvas-id="waveform" class="waveform-canvas"></canvas>
+    <view class="waveform-info">
+      <text class="text-sm text-accent">频率: {{currentFreq}} Hz</text>
+      <text class="text-sm text-secondary">状态: {{listenStatus}}</text>
+    </view>
+  </view>
+
+  <!-- 输入区 -->
+  <view class="input-area">
+    <view class="input-row" wx:if="{{commMode === 'acoustic'}}">
+      <input
+        class="msg-input"
+        placeholder="输入消息 (最多223字节)"
+        value="{{inputText}}"
+        bindinput="onInput"
+        maxlength="200"
+      />
+      <button class="btn-send" bindtap="sendText" disabled="{{isTransmitting}}">发送</button>
+    </view>
+
+    <!-- PTT 按钮 -->
+    <button
+      class="ptt-btn {{isPTTActive ? 'ptt-active' : ''}}"
+      bindtouchstart="startPTT"
+      bindtouchend="endPTT"
+      bindtouchcancel="endPTT"
+      disabled="{{!channel}}"
+    >
+      {{isPTTActive ? '正在发送...' : '按住说话 (PTT)'}}
+    </button>
+  </view>
+</view>
