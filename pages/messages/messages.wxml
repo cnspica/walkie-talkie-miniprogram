@@ -1,0 +1,30 @@
+<!-- pages/messages/messages.wxml -->
+<view class="container">
+  <view class="page-title">消息记录</view>
+
+  <view class="filter-bar">
+    <view class="filter-item {{filter === 'all' ? 'active' : ''}}" bindtap="setFilter" data-filter="all">全部</view>
+    <view class="filter-item {{filter === 'received' ? 'active' : ''}}" bindtap="setFilter" data-filter="received">已接收</view>
+    <view class="filter-item {{filter === 'sent' ? 'active' : ''}}" bindtap="setFilter" data-filter="sent">已发送</view>
+  </view>
+
+  <scroll-view class="msg-scroll" scroll-y>
+    <view class="msg-record" wx:for="{{filteredMessages}}" wx:key="id">
+      <view class="msg-record-header">
+        <text class="msg-channel">CH{{item.channelId}}</text>
+        <text class="msg-time">{{item.time}}</text>
+        <text class="msg-type {{item.isSelf ? 'type-sent' : 'type-received'}}">{{item.isSelf ? '发送' : '接收'}}</text>
+      </view>
+      <view class="msg-record-body">{{item.text}}</view>
+      <view class="msg-record-meta" wx:if="{{item.errors !== undefined}}">
+        <text class="text-sm text-warning">RS纠错: {{item.errors}}字节</text>
+      </view>
+    </view>
+
+    <view class="empty-state" wx:if="{{filteredMessages.length === 0}}">
+      <text class="text-secondary">暂无消息记录</text>
+    </view>
+  </scroll-view>
+
+  <button class="btn-secondary" bindtap="clearMessages" wx:if="{{messages.length > 0}}">清空记录</button>
+</view>
