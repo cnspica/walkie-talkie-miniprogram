@@ -1,0 +1,46 @@
+{
+  "pages": [
+    "pages/talk/talk",
+    "pages/channel/channel",
+    "pages/messages/messages",
+    "pages/settings/settings"
+  ],
+  "window": {
+    "navigationBarTitleText": "声波对讲机",
+    "navigationBarBackgroundColor": "#1a1a2e",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#12122a",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#5DCAA5",
+    "backgroundColor": "#1a1a2e",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/talk/talk",
+        "text": "对讲"
+      },
+      {
+        "pagePath": "pages/channel/channel",
+        "text": "频道"
+      },
+      {
+        "pagePath": "pages/messages/messages",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/settings/settings",
+        "text": "设置"
+      }
+    ]
+  },
+  "permissions": {
+    "scope.record": {
+      "desc": "需要麦克风权限以接收声波信号"
+    }
+  },
+  "requiredPrivateInfos": ["getLocation"],
+  "sitemapLocation": "sitemap.json"
+}
