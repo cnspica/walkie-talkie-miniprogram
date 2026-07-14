@@ -1,0 +1,38 @@
+<!-- pages/channel/channel.wxml -->
+<view class="container">
+  <view class="page-title">频道列表</view>
+
+  <view class="channel-list">
+    <view
+      class="channel-item {{item.id === currentChannelId ? 'active' : ''}}"
+      wx:for="{{channels}}"
+      wx:key="id"
+      bindtap="selectChannel"
+      data-id="{{item.id}}"
+    >
+      <view class="channel-icon {{item.type === 'acoustic' ? 'icon-acoustic' : 'icon-network'}}">
+        <text wx:if="{{item.type === 'acoustic'}}">S</text>
+        <text wx:else>N</text>
+      </view>
+      <view class="channel-detail">
+        <view class="channel-name">{{item.name}}</view>
+        <view class="channel-info-row">
+          <text class="text-sm text-secondary">CH{{item.id}} · {{item.members}}人在线</text>
+          <text class="text-sm {{item.type === 'acoustic' ? 'text-accent' : 'text-info'}}">{{item.type === 'acoustic' ? '声学' : '网络'}}</text>
+        </view>
+      </view>
+      <view class="channel-status">
+        <view class="status-dot {{item.id === currentChannelId ? 'dot-active' : ''}}"></view>
+      </view>
+    </view>
+  </view>
+
+  <button class="btn-primary" style="margin-top: 16px;" bindtap="showCreateDialog">创建新频道</button>
+
+  <view class="info-card">
+    <view class="info-title">声学频道说明</view>
+    <view class="info-text">声学频道使用 FSK 调制技术，通过扬声器播放和麦克风接收声波来传输文本消息。无需网络连接，适用于户外探险、地下空间等无信号场景。</view>
+    <view class="info-text">传输距离取决于设备音量和环境噪音，通常 3-10 米。</view>
+    <view class="info-text">传输速率约 150bps（18字节/秒），单条消息最大 223 字节。</view>
+  </view>
+</view>
