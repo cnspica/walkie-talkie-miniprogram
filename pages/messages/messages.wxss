@@ -1,0 +1,96 @@
+/* pages/messages/messages.wxss */
+.page-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.filter-item {
+  flex: 1;
+  text-align: center;
+  padding: 6px;
+  background: #1a1a2e;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #888;
+}
+
+.filter-item.active {
+  background: #185FA5;
+  color: #fff;
+}
+
+.msg-scroll {
+  flex: 1;
+  max-height: 70vh;
+}
+
+.msg-record {
+  background: #1a1a2e;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.msg-record-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.msg-channel {
+  font-size: 10px;
+  background: #2a2a4e;
+  color: #5DCAA5;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.msg-time {
+  font-size: 11px;
+  color: #666;
+  flex: 1;
+}
+
+.msg-type {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.type-sent {
+  background: #185FA5;
+  color: #fff;
+}
+
+.type-received {
+  background: #1D9E75;
+  color: #fff;
+}
+
+.msg-record-body {
+  font-size: 13px;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+.msg-record-meta {
+  margin-top: 4px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.text-secondary { color: #888; }
+.text-warning { color: #EF9F27; }
+.text-sm { font-size: 12px; }
