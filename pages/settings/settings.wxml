@@ -1,0 +1,71 @@
+<!-- pages/settings/settings.wxml -->
+<view class="container">
+  <view class="page-title">设置</view>
+
+  <view class="settings-group">
+    <view class="group-title">音频参数</view>
+    <view class="setting-item">
+      <text class="setting-label">采样率</text>
+      <text class="setting-value">{{fskConfig.sampleRate}} Hz</text>
+    </view>
+    <view class="setting-item">
+      <text class="setting-label">波特率</text>
+      <text class="setting-value">{{fskConfig.baudRate}} bps</text>
+    </view>
+    <view class="setting-item">
+      <text class="setting-label">Mark 频率</text>
+      <text class="setting-value">{{fskConfig.markFreq}} Hz</text>
+    </view>
+    <view class="setting-item">
+      <text class="setting-label">Space 频率</text>
+      <text class="setting-value">{{fskConfig.spaceFreq}} Hz</text>
+    </view>
+    <view class="setting-item">
+      <text class="setting-label">每帧最大字节</text>
+      <text class="setting-value">{{fskConfig.maxDataBytes}} bytes</text>
+    </view>
+  </view>
+
+  <view class="settings-group">
+    <view class="group-title">通信选项</view>
+    <view class="setting-item">
+      <text class="setting-label">提示音</text>
+      <switch checked="{{dingEnabled}}" bindchange="toggleDing" color="#5DCAA5"/>
+    </view>
+    <view class="setting-item">
+      <text class="setting-label">高速模式 (300bps)</text>
+      <switch checked="{{highSpeed}}" bindchange="toggleHighSpeed" color="#5DCAA5"/>
+    </view>
+    <view class="setting-item">
+      <text class="setting-label">接收震动提示</text>
+      <switch checked="{{vibrateEnabled}}" bindchange="toggleVibrate" color="#5DCAA5"/>
+    </view>
+    <view class="setting-item">
+      <text class="setting-label">音量</text>
+      <slider min="0" max="100" value="{{volume}}" bindchange="onVolumeChange" activeColor="#5DCAA5" style="flex:1; margin-left: 12px;"/>
+    </view>
+  </view>
+
+  <view class="settings-group">
+    <view class="group-title">关于</view>
+    <view class="setting-item">
+      <text class="setting-label">技术方案</text>
+      <text class="setting-value text-accent">FSK + Reed-Solomon</text>
+    </view>
+    <view class="setting-item">
+      <text class="setting-label">来源</text>
+      <text class="setting-value text-secondary">基于 JS FSK Modulator</text>
+    </view>
+    <view class="setting-item">
+      <text class="setting-label">版本</text>
+      <text class="setting-value">1.0.0</text>
+    </view>
+  </view>
+
+  <view class="info-card">
+    <view class="info-title">工作原理</view>
+    <view class="info-text">本应用使用 FSK（频移键控）调制技术，将文本消息编码为音频信号。</view>
+    <view class="info-text">bit=1 对应 2100Hz，bit=0 对应 1300Hz，通过扬声器播放，对方设备麦克风接收后解调还原。</view>
+    <view class="info-text">Reed-Solomon 前向纠错编码保证在噪声环境下也能正确解码，每帧可纠正最多 16 字节错误。</view>
+  </view>
+</view>
